@@ -33,7 +33,7 @@ type UpdatePostBody = {
     content?: string
 }
 
-export async function PUT(
+export async function PATCH(
     req: NextRequest,
     { params }: { params: { id: string } }
 ) {

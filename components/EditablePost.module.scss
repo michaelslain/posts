@@ -4,11 +4,12 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    cursor: pointer;
     border-radius: 10px;
-    transition: var(--transition);
 
-    &:hover {
-        background-color: var(--grey);
+    .buttonContainer {
+        display: flex;
+        justify-content: center;
+        gap: 10px;
+        margin-top: 10px;
     }
 }

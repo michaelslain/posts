@@ -1,11 +1,12 @@
 import { FC } from 'react'
 import styles from './page.module.scss'
-import Markdown from 'react-markdown'
 import prismaClient from '@/lib/prismaClient'
 import { notFound } from 'next/navigation'
 import Heading from '@/components/Heading'
 import P from '@/components/P'
 import LinkButton from '@/components/LinkButton'
+import dateStringify from '@/util/dateStringify'
+import Markdown from '@/components/Markdown'
 
 type PageProps = {
     params: {
@@ -23,7 +24,7 @@ const Page: FC<PageProps> = async ({ params: { id } }) => {
     if (!post) notFound()
 
     const { title, content, createdAt } = post
-    const dateString = createdAt.toISOString()
+    const dateString = dateStringify(createdAt)
 
     return (
         <div className={styles.container}>

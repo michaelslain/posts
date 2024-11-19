@@ -2,7 +2,11 @@ import { NextRequest, NextResponse } from 'next/server'
 import { jwtVerify } from 'jose'
 
 export async function middleware(req: NextRequest) {
-    if (req.method === 'GET' && req.nextUrl.pathname !== '/posts/create')
+    if (
+        req.method === 'GET' &&
+        req.nextUrl.pathname !== '/posts/create' &&
+        req.nextUrl.pathname !== '/posts/edit'
+    )
         return NextResponse.next()
 
     const token = req.cookies.get('token')?.value
@@ -36,5 +40,5 @@ export async function middleware(req: NextRequest) {
 }
 
 export const config = {
-    matcher: ['/api/posts/:path*', '/posts/create'],
+    matcher: ['/api/posts/:path*', '/posts/create', '/posts/edit'],
 }

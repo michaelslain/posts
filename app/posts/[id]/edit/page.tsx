@@ -6,12 +6,22 @@ import styles from './page.module.scss'
 import Nullable from '@/types/Nullable.type'
 import Button from '@/components/Button'
 import Markdown from '@/components/Markdown'
+import sleep from '@/util/sleep'
+import { useRouter } from 'next/navigation'
 
-const Page: FC = () => {
+type PageProps = {
+    params: {
+        id: string
+    }
+}
+
+const Page: FC<PageProps> = ({ params: { id } }) => {
     const [content, setContent] = useState<Nullable<string>>(null)
     const [title, setTitle] = useState<Nullable<string>>(null)
 
     const inputRef = useRef<HTMLInputElement | null>(null)
+
+    const router = useRouter()
 
     const handleFileChange: ChangeEventHandler<HTMLInputElement> = e => {
         if (!(e.target.files && e.target.files.length > 0)) return
@@ -39,8 +49,9 @@ const Page: FC = () => {
         }
 
         try {
-            const res = await fetch('/api/posts', {
-                method: 'POST',
+            const url = `/api/posts/${id}`
+            const res = await fetch(url, {
+                method: 'PATCH',
                 headers: {
                     'Content-Type': 'application/json',
                 },
@@ -58,6 +69,8 @@ const Page: FC = () => {
             toast.success('Content submitted successfully!')
 
             handleClear()
+            await sleep(3000)
+            router.push(`/posts/edit`)
         } catch (error) {
             console.error('Submission error:', error)
             toast.error('Failed to submit content.')

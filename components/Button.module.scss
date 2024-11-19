@@ -1,0 +1,11 @@
+.button {
+    cursor: pointer;
+    padding: 10px;
+    border-radius: 10px;
+    background: var(--grey);
+    transition: var(--transition);
+
+    &:hover {
+        background: transparent;
+    }
+}
